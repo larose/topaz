@@ -1,0 +1,31 @@
+{
+  "name": "topaz",
+  "description": "Lightweight asynchronous module loader",
+  "version": "0.0.1",
+  "homepage": "https://github.com/larose/topaz",
+  "author": {
+    "name": "Mathieu Larose <mathieu@mathieularose.com> (http://mathieularose.com)"
+  },
+  "keywords": [
+    "asynchronous",
+    "loader",
+    "module",
+    "promise"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/larose/topaz"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "bluebird": "~2.3.0",
+    "lodash": "~2.4.1",
+    "mocha": "~1.21.4",
+    "seedrandom": "~2.3.6",
+    "sinon": "~1.10.3"
+  },
+  "main": "./lib/index.js",
+  "files": [
+    "lib/index.js"
+  ]
+}
