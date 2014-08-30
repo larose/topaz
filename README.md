@@ -19,7 +19,7 @@ var fetch = function (id) {
   if (id === 'a') {
     return Promise.resolve({
       dependencies: ['b'],
-      factory: function (b) {
+      execute: function (b) {
         return Promise.resolve(1 + b);
       }
     });
@@ -28,7 +28,7 @@ var fetch = function (id) {
   if (id === 'b') {
     return Promise.resolve({
       dependencies: [],
-      factory: function () {
+      execute: function () {
         return Promise.resolve(2);
       }
     });

@@ -9,7 +9,7 @@ var Promise = require('bluebird');
 var INSTANCES = data.valid.human.concat(data.valid.random);
 
 var testInstance = function (instance) {
-  var factorySpies = [];
+  var executeSpies = [];
   var fetchSpy;
 
   describe(instance.name, function () {
@@ -24,9 +24,9 @@ var testInstance = function (instance) {
         Promise: Promise
       });
 
-      factorySpies = {};
+      executeSpies = {};
       _.forEach(instance.modules, function (module, name) {
-        factorySpies[name] = sinon.spy(module, 'factory');
+        executeSpies[name] = sinon.spy(module, 'execute');
       });
 
       promises = instance.resolves.map(function (names) {
@@ -38,7 +38,7 @@ var testInstance = function (instance) {
 
     after(function () {
       _.forEach(instance.modules, function (module) {
-        module.factory.restore();
+        module.execute.restore();
       });
     });
 
@@ -53,17 +53,17 @@ var testInstance = function (instance) {
       assert(_.isEqual(fetchedModuleNames, instance.loaded), "fetched once");
     });
 
-    it("should not call the factory for the modules not needed", function () {
+    it("should not call the execute for the modules not needed", function () {
       instance.notLoaded.forEach(function (name) {
         var module = instance.modules[name];
-        assert.equal(module.factory.callCount, 0);
+        assert.equal(module.execute.callCount, 0);
       });
     });
 
-    it("should call the factory once per module needed", function () {
+    it("should call the execute once per module needed", function () {
       instance.loaded.forEach(function (name) {
         var module = instance.modules[name];
-        assert.equal(module.factory.callCount, 1);
+        assert.equal(module.execute.callCount, 1);
       });
     });
 

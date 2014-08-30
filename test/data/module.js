@@ -7,7 +7,7 @@ exports.createModules = function (graph) {
   _.forEach(graph, function (dependencies, name) {
     var module = {
       dependencies: dependencies.slice(0),
-      factory: function () {
+      execute: function () {
         return Promise.resolve(name);
       }
     };
