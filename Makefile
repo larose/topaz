@@ -10,6 +10,10 @@ pack:
 	rm -f README.md~
 	npm pack
 
+publish:
+	rm -f README.md~
+	npm publish .
+
 test:
 	$(MOCHA)
 
