@@ -1,6 +1,6 @@
 var Topaz = require('../lib');
 var assert = require('assert');
-var locator = require('./helpers/locator');
+var fetcher = require('./helpers/fetcher');
 var sinon = require('sinon');
 var Promise = require('bluebird');
 
@@ -32,7 +32,7 @@ var INSTANCES = [{
 
 
 describe("circular dependency", function () {
-  var locatorSpy;
+  var fetchSpy;
   var resolve;
   var promise;
 
@@ -64,10 +64,10 @@ describe("circular dependency", function () {
       }
     };
 
-    var simpleLocator = locator.InMemory(modules);
-    locatorSpy = sinon.spy(simpleLocator);
+    var simpleFetch = fetcher.InMemory(modules);
+    fetchSpy = sinon.spy(simpleFetch);
     resolve = Topaz({
-      locate: locatorSpy,
+      fetch: fetchSpy,
       Promise: Promise
     });
   });

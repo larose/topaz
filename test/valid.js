@@ -2,7 +2,7 @@ var _ = require('lodash');
 var Topaz = require('../lib');
 var assert = require('assert');
 var data = require('./data');
-var locator = require('./helpers/locator');
+var fetcher = require('./helpers/fetcher');
 var sinon = require('sinon');
 var Promise = require('bluebird');
 
@@ -10,17 +10,17 @@ var INSTANCES = data.valid.human.concat(data.valid.random);
 
 var testInstance = function (instance) {
   var factorySpies = [];
-  var locatorSpy;
+  var fetchSpy;
 
   describe(instance.name, function () {
     var promises;
 
     before(function () {
-      var simpleLocator = locator.InMemory(instance.modules);
-      locatorSpy = sinon.spy(simpleLocator);
+      var simpleFetch = fetcher.InMemory(instance.modules);
+      fetchSpy = sinon.spy(simpleFetch);
 
       resolve = Topaz({
-        locate: locatorSpy,
+        fetch: fetchSpy,
         Promise: Promise
       });
 
@@ -42,15 +42,15 @@ var testInstance = function (instance) {
       });
     });
 
-    it("should not call locate for the modules not needed", function () {
-      var locatedModuleNames = _.flatten(locatorSpy.args);
-      assert.equal(_.intersection(locatedModuleNames, instance.notLoaded).length, 0);
+    it("should not call fetch for the modules not needed", function () {
+      var fetchedModuleNames = _.flatten(fetchSpy.args);
+      assert.equal(_.intersection(fetchedModuleNames, instance.notLoaded).length, 0);
     });
 
-    it("should call locate once per module needed", function () {
-      var locatedModuleNames = _.flatten(locatorSpy.args);
-      locatedModuleNames.sort();
-      assert(_.isEqual(locatedModuleNames, instance.loaded), "located once");
+    it("should call fetch once per module needed", function () {
+      var fetchedModuleNames = _.flatten(fetchSpy.args);
+      fetchedModuleNames.sort();
+      assert(_.isEqual(fetchedModuleNames, instance.loaded), "fetched once");
     });
 
     it("should not call the factory for the modules not needed", function () {

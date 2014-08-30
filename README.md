@@ -15,7 +15,7 @@ Then:
 var Topaz = require('topaz');
 var Promise = require('bluebird'); // Or your favorite promise library
 
-var locate = function (id) {
+var fetch = function (id) {
   if (id === 'a') {
     return Promise.resolve({
       dependencies: ['b'],
@@ -38,7 +38,7 @@ var locate = function (id) {
 };
 
 var resolve = Topaz({
-  locate: locate,
+  fetch: fetch,
   Promise: Promise
 });
 
