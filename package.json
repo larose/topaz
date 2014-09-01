@@ -26,6 +26,7 @@
   },
   "main": "./lib/index.js",
   "files": [
-    "lib/index.js"
+    "lib/index.js",
+    "LICENSE"
   ]
 }
