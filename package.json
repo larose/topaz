@@ -1,7 +1,7 @@
 {
   "name": "topaz",
   "description": "Lightweight asynchronous module loader",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "homepage": "https://github.com/larose/topaz",
   "author": {
     "name": "Mathieu Larose <mathieu@mathieularose.com> (http://mathieularose.com)"
